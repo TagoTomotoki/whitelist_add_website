@@ -5,3 +5,4 @@ chmod +x ./whitelist
 screen -S  
 ./whitelist --urls=http://0.0.0.0:5000 --ASPNETCORE_ENVIRONMENT=Production  
 Ctrl+ad,切换回原终端。  
+添加白名单，访问 http://ip:5000/getip 即可。  
