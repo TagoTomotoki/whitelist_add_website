@@ -2,6 +2,7 @@
 iptables -A INPUT -i lo -j ACCEPT  
 iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT  
 iptables -A INPUT -p tcp --dport 22 -j ACCEPT  
+iptables -A INPUT -p tcp --dport 5000 -j ACCEPT  
 iptables -P INPUT DROP  
 下载Releases到当前目录，并赋予运行权限  
 wget https://github.com/TagoTomotoki/whitelist_add_website/releases/download/v1.0/whitelist  
