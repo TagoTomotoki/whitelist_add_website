@@ -1,5 +1,3 @@
-[TOC]
-
 whitelist_add_website是一款可以让你通过简单的GET请求完成云主机白名单添加的一个工具。通过本工具，你可以使用类似以下链接来为指定主机添加白名单
 
 ```
@@ -92,7 +90,7 @@ cloudflare支持80端口回源，因此只要把ssl设置为“灵活”，将Li
 http://160.16.206.31:5000/getip?key=111111&mode=dns&host=www.baidu.com
 ```
 
-卸载及配置重置
+## 卸载及配置重置
 
 请运行以下命令
 
@@ -101,6 +99,8 @@ iptables -t filter -F WHITELIST
 iptables -D INPUT -j WHITELIST
 iptables -t filter -X WHITELIST
 rm -rf /etc/systemd/system/whitelist.service
+systemctl stop whitelist
+systemctl daemon-reload
 ```
 
 而配置重置的话，执行上面最后一条命令，并在配置文件的目录内
