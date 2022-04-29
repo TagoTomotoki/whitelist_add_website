@@ -7,6 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Releases\**" />
+    <Content Remove="Releases\**" />
+    <EmbeddedResource Remove="Releases\**" />
+    <None Remove="Releases\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_WebToolingArtifacts Remove="Properties\PublishProfiles\Resource.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CliWrap" Version="3.4.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
