@@ -87,7 +87,7 @@ cloudflare支持80端口回源，因此只要把ssl设置为“灵活”，将Li
 请求添加mode=dns字段，并添加相应域名信息，如
 
 ```
-http://160.16.206.31:5000/getip?key=111111&mode=dns&host=www.baidu.com
+http://主机名:port/getip?key=111111&mode=dns&host=www.baidu.com
 ```
 
 ## 卸载及配置重置
@@ -103,6 +103,6 @@ systemctl stop whitelist
 systemctl daemon-reload
 ```
 
-而配置重置的话，执行上面最后一条命令，并在配置文件的目录内
+而配置重置的话，执行上面最后三条命令，并在配置文件的目录内
 
 运行`./whitelist`即可
