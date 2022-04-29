@@ -98,12 +98,12 @@ if (!File.Exists(ServicePath))
     var reload = Cli.Wrap("systemctl")
     .WithArguments("daemon-reload")
     .ExecuteAsync();
-    //var start = Cli.Wrap("systemctl")
-    //.WithArguments("start whitelist.service")
-    //.ExecuteAsync();
-    //var boot = Cli.Wrap("systemctl")
-    //.WithArguments("enable whitelist.service")
-    //.ExecuteAsync();
+    var start = Cli.Wrap("systemctl")
+    .WithArguments("start whitelist")
+    .ExecuteAsync();
+    var boot = Cli.Wrap("systemctl")
+    .WithArguments("enable whitelist")
+    .ExecuteAsync();
     Console.WriteLine("已添加系统服务，程序已自动重启，访问监听端口即可。");
     System.Environment.Exit(0);
 };
