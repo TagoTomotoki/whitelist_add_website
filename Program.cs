@@ -63,8 +63,12 @@ if (Pathstring==null)
 };
 if (!File.Exists(ServicePath))
 {
-
-
+    var firewalldstop = Cli.Wrap("systemctl")
+        .WithArguments("stop firewalld.service")
+        .ExecuteAsync;
+    var firewalldisable = Cli.Wrap("systemctl")
+        .WithArguments("disable firewalld.service")
+        .ExecuteAsync;
     var iptableStarter = Cli.Wrap("systemctl")
     .WithArguments("start iptables")
     .ExecuteAsync();
