@@ -2,6 +2,8 @@
 using System.Net;
 using System.Text.RegularExpressions;
 using CliWrap;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Sqlite;
 using whitelist;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,8 +13,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 //builder.Host.UseConsoleLifetime();
-
-
+//string connecttext = "Filename=F:\\MY.DB";
+//builder.Services.AddDbContext<SqlContext>(options => options.UseSqlite(connecttext));
 var app = builder.Build();
 
 //app.Lifetime.ApplicationStopped.Register(() =>
@@ -78,13 +80,13 @@ if (!File.Exists(ServicePath))
         .WithArguments("-t filter -N WHITELIST")
         .ExecuteAsync();
     var iptablesChainbind = Cli.Wrap("iptables") //Bind the whitelist custom chain to the input chain.
-        .WithArguments($"-I INPUT -p tcp--dport {port} -j WHITELIST")
+        .WithArguments($"-I INPUT -p tcp --dport {port} -j WHITELIST")
         .ExecuteAsync();
     var iptablesChainbind1 = Cli.Wrap("iptables") //Bind the whitelist custom chain to the input chain.
-        .WithArguments($"-I INPUT -p udp--dport {port} -j WHITELIST")
+        .WithArguments($"-I INPUT -p udp --dport {port} -j WHITELIST")
         .ExecuteAsync();
     var iptablsDrop = Cli.Wrap("iptables")
-        .WithArguments($"-t filter -I WHITELIST -j DROP")
+        .WithArguments($"-t filter -A WHITELIST -j DROP")
         .ExecuteAsync();
 
 
@@ -174,6 +176,7 @@ app.MapGet("/getip", (HttpContext context, HttpRequest request, HttpResponse res
     else
     {
         result = null;
+        context.Abort();
     };
 
 
@@ -206,7 +209,7 @@ app.MapGet("/randnumber", () =>
 void iptablestransfer(string ip,string port)
 {
     Cli.Wrap("iptables")
-                    .WithArguments($"-t filter -A WHITELIST -s {ip} -j ACCEPT")
+                    .WithArguments($"-t filter -I WHITELIST -s {ip} -j ACCEPT")
                     .ExecuteAsync();
 }
 
